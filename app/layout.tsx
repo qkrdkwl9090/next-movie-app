@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import NavBar from "./components/NavBar";
+import TanstackProvider from "@/providers/TanstackProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,9 +12,13 @@ export const metadata: Metadata = {
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <>
-      <NavBar />
-      <div>{children}</div>
-    </>
+    <html lang="en">
+      <body>
+        <TanstackProvider>
+          <NavBar />
+          <div>{children}</div>
+        </TanstackProvider>
+      </body>
+    </html>
   );
 }
