@@ -3,6 +3,7 @@
 import { fetchMovies } from "@/api";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export interface IMovies {
   page: number;
@@ -40,10 +41,6 @@ export default function Home() {
     queryKey: ["movies"],
     queryFn: fetchMovies,
   });
-  const router = useRouter();
-  const onClick = (id: number) => {
-    return router.push(`/${id}`);
-  };
   return (
     <>
       <h1 className="my-4 px-4 font-bold text-lg">Home</h1>
@@ -52,7 +49,7 @@ export default function Home() {
           <h4>Loading...</h4>
         ) : (
           data?.results?.map((movie) => (
-            <a key={movie.id} onClick={() => onClick(movie.id)} href="#">
+            <Link key={movie.id} href={`/${movie.id}`}>
               <img
                 className="rounded-2xl shadow-poster transition-transform ease-in hover:scale-105 hover:-translate-y-2"
                 src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
@@ -61,7 +58,7 @@ export default function Home() {
               <h4 className="mt-1 ßtext-center text-lg">
                 {movie.original_title}
               </h4>
-            </a>
+            </Link>
           ))
         )}
       </div>
